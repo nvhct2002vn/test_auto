@@ -23,5 +23,6 @@ public class TestAutoApplication {
     @EventListener(ApplicationReadyEvent.class)
     public void runThread() throws ExecutionException, InterruptedException {
         this.loginFacebookThread.loginFB();
+//        this.loginFacebookThread.getChromeLive();
     }
 }

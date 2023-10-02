@@ -6,4 +6,5 @@ import java.util.concurrent.ExecutionException;
 
 public interface LoginFacebookThread {
     void loginFB() throws InterruptedException, ExecutionException;
+    void getChromeLive();
 }

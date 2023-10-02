@@ -2,6 +2,9 @@ package com.example.test_auto.Service.iplm;
 
 import com.example.test_auto.DTO.ResultLoginFB;
 import com.example.test_auto.Service.LoginFacebookThread;
+import io.webfolder.cdp.Launcher;
+import io.webfolder.cdp.session.Session;
+import io.webfolder.cdp.session.SessionFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -81,5 +84,25 @@ public class LoginFacebookThreadImpl implements LoginFacebookThread {
 
         System.out.println("Kết quả: " + resultLoginFB);
 //        return resultLoginFB;
+    }
+
+    @Override
+    public void getChromeLive(){
+        // Khởi tạo phiên bản mới của trình duyệt Chrome đang chạy
+        Launcher launcher = new Launcher();
+        SessionFactory sessionFactory = launcher.launch();
+
+        Session session = sessionFactory.create();
+        // Điều hướng đến một trang web
+        session.navigate("https://www.example.com");
+        session.waitDocumentReady();
+
+        // Lấy URL hiện tại
+        String currentUrl = (String) session.evaluate("window.location.href");
+        System.out.println("Current URL: " + currentUrl);
+
+        // Đóng phiên làm việc với trình duyệt
+        session.close();
+        launcher.getProcessManager().kill();
     }
 }
