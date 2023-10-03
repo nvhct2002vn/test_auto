@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 @Service
 public class LoginFacebookThreadImpl implements LoginFacebookThread {
@@ -70,9 +71,8 @@ public class LoginFacebookThreadImpl implements LoginFacebookThread {
         List<Future<Boolean>> futures = executorService.invokeAll(callables);
 
         // Lặp qua danh sách Future để lấy kết quả từ các tác vụ
-        for (Future<Boolean> future : futures) {
-            Boolean result = future.get();
-            if (result) {
+        for (Future<Boolean> result : futures) {
+            if (result.get()) {
                 resultLoginFB.setCountSuccess(resultLoginFB.getCountSuccess() + 1);
             } else {
                 resultLoginFB.setCountFailed(resultLoginFB.getCountFailed() + 1);
